@@ -1,0 +1,12 @@
+block link
+-var selected = 'home';
+-var menu = { 'home': '/', 'letter': '/send-request', 'overview': '/overview','ticket': '/ticket' };
+
+nav
+  ul
+    each val, key in menu
+      li
+        if selected === key
+          a.selected(href=val, title=key)= key
+        else
+          a(href=val, title=key)= key

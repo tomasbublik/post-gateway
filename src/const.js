@@ -1,0 +1,1 @@
+export const CREDENTIALS = {'user': 'dreplech', 'password': 'dreplech'};
