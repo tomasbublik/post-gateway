@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataroot>
+    <typvyplatneho>169</typvyplatneho>
+    <typtisku>0</typtisku>
+    <obalkac4>0</obalkac4>
+    <tiskpoukazky>0</tiskpoukazky>
+    <typods>1</typods>
+    <typadr>1</typadr>
+    <odsid/>
+    <odsobrazek>Soubor s logem, kódován pomocí algoritmu Base64</odsobrazek>
+    <odsfirma>FOXX s.r.o.</odsfirma>
+    <odsosoba/>
+    <odsulice>Na Štáhlavce</odsulice>
+    <odscp>1255</odscp>
+    <odsobec>Praha 6</odsobec>
+    <odspsc>16000</odspsc>
+    <adrosloveni/>
+    <adrfirma/>
+    <adrosoba>Monika Neumannová</adrosoba>
+    <adrulice>Česká</adrulice>
+    <adrcp>12</adrcp>
+    <adrco/>
+    <adrobec>Frýdek Mísek</adrobec>
+    <adrpsc>73801</adrpsc>
+    <adriso/>
+    <carovy_kod_adresata>73801</carovy_kod_adresata>
+    <odsco>2</odsco>
+    <poukazka>
+        <castka/>
+        <predcisli_uctu/>
+        <ucet/>
+        <kod_banky/>
+        <variabilni_symbol/>
+        <specificky_symbol/>
+        <konstantni_symbol/>
+        <zprava_pro_prijemce1/>
+        <zprava_pro_prijemce2/>
+        <ucel_platby/>
+        <adresa_majitele_uctu>
+            <adr1/>
+            <adr2/>
+            <adr3/>
+            <adr4/>
+        </adresa_majitele_uctu>
+        <odesilatel>
+            <adr1/>
+            <adr2/>
+            <adr3/>
+            <adr4/>
+        </odesilatel>
+    </poukazka>
+    <soubory>
+        <soubor mimeType="" name="test.pdf">
+            <typtisku>1</typtisku>
+            <dataSoubor>PDF soubor, kódován pomocí algoritmu Base64</dataSoubor>
+        </soubor>
+        <soubor mimeType="" name="atachment.pdf">
+            <typtisku>1</typtisku>
+            <dataSoubor>PDF soubor, kódován pomocí algoritmu Base64</dataSoubor>
+        </soubor>
+    </soubory>
+</dataroot>
