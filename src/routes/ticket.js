@@ -6,7 +6,7 @@ var express = require('express');
 var router = express.Router();
 
 const POSTAL_TICKET_IDENTIFICATION = 'postal_ticket';
-const PAGE_TITLE = 'POstal ticket';
+const PAGE_TITLE = 'Postal ticket';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
