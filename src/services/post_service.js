@@ -1,5 +1,5 @@
 "use strict";
-import {saveRequest, saveResponse} from "./db_utils";
+import {saveRequest, saveResponse} from "./db_service";
 
 var request = require('request');
 //to debug the input and output data

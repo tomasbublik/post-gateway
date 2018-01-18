@@ -1,4 +1,4 @@
-import {sendRequest} from "../sender";
+import {sendRequest} from "../services/post_service";
 import {CREDENTIALS} from "../const";
 
 var express = require('express');
@@ -6,10 +6,11 @@ var router = express.Router();
 
 const DELIVERIES_IDENTIFICATION = 'deliveries_overview';
 const PAGE_TITLE = 'Deliveries overview';
+const view = 'overview';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('overview', {title: PAGE_TITLE, date: getCurrentDateFormatted(), delivery_number: ''});
+    res.render(view, {title: PAGE_TITLE, date: getCurrentDateFormatted(), delivery_number: ''});
 
 });
 router.post('/', async function (req, res) {
@@ -19,7 +20,6 @@ router.post('/', async function (req, res) {
     if (!deliveryNumber) {
         deliveryNumber = '';
     }
-    const view = 'overview';
     const renderOptions = {
         title: PAGE_TITLE,
         date: req.body.date,

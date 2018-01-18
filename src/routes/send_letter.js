@@ -1,5 +1,5 @@
-import {readFile, readFileBase64} from "../file_utils";
-import {sendRequest} from "../sender";
+import {readFile, readFileBase64} from "../utils/file_utils";
+import {sendRequest} from "../services/post_service";
 import {CREDENTIALS} from "../const";
 
 const express = require('express');
@@ -8,18 +8,18 @@ var DOMParser = require('xmldom').DOMParser;
 
 const LETTER_TYPE_IDENTIFICATION = 'letter';
 const PAGE_TITLE = 'Letter sending';
+const view = 'send_request';
 
 /* GET send request page. */
 router.get('/', function (req, res, next) {
-    res.render('send_request', {title: PAGE_TITLE});
+    res.render(view, {title: PAGE_TITLE});
 });
 
 router.post('/', async function (req, res) {
-    console.log('Request received');
+    console.log('Send request received');
 
     let fileContent = await prepareXmlWithData('files/first_letter.xml');
 
-    const view = 'send_request';
     const renderOptions = {
         title: PAGE_TITLE
     };

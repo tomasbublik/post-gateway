@@ -4,11 +4,26 @@
   "private": true,
   "scripts": {
     "dev": "./node_modules/.bin/nodemon -w src --exec \"babel-node src/www.js --presets es2015,stage-0\"",
-    "build": "babel src -d dest --source-maps",
+    "build": "babel src -s -D -d dest --source-maps",
     "start": "npm run build && node dest/www.js",
     "just_start": "node dest/www.js",
     "start_old": "node ./src/www.js",
-    "startd_old": "nodemon ./src/www.js"
+    "startd_old": "nodemon ./src/www.js",
+    "lint": "eslint src"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -18,14 +33,16 @@
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "eslint": "^4.16.0",
     "express": "~4.15.5",
     "form-data": "^2.3.1",
     "insecure": "0.0.4",
-    "jade": "~1.11.0",
     "mongodb": "^3.0.1",
     "mongoose": "^4.13.9",
     "morgan": "~1.9.0",
     "pretty-data": "^0.40.0",
+    "pug": "^2.0.0-rc.4",
+    "pug-lint": "^2.5.0",
     "request": "^2.83.0",
     "request-debug": "^0.2.0",
     "serve-favicon": "~2.4.5",

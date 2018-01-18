@@ -1,4 +1,4 @@
-import {sendRequest} from "../sender";
+import {sendRequest} from "../services/post_service";
 import {CREDENTIALS} from "../const";
 import * as fs from "fs";
 
@@ -7,10 +7,11 @@ var router = express.Router();
 
 const POSTAL_TICKET_IDENTIFICATION = 'postal_ticket';
 const PAGE_TITLE = 'Postal ticket';
+const view = 'ticket';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('ticket', {title: PAGE_TITLE, postal_number: ''});
+    res.render(view, {title: PAGE_TITLE, postal_number: ''});
 });
 
 router.post('/', async function (req, res) {
@@ -20,7 +21,6 @@ router.post('/', async function (req, res) {
     if (!postalNumber) {
         postalNumber = '';
     }
-    const view = 'ticket';
     const renderOptions = {
         title: PAGE_TITLE,
         postal_number: postalNumber
