@@ -14,6 +14,24 @@ exports.connect = function(url, done) {
     })
 };
 
+exports.connectAsync = async function (url) {
+    return new Promise(function (resolve, reject) {
+        if (state.db) {
+            resolve('OK');
+        }
+
+        MongoClient.connect(url, function(err, db) {
+            if (err) {
+                reject(err);
+            }
+            state.db = db;
+            resolve('OK');
+        })
+    });
+};
+
+
+
 exports.getDB = function(dbName) {
     return state.db.db(dbName)
 };

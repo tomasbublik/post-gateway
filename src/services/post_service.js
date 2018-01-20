@@ -1,5 +1,8 @@
 "use strict";
-import {saveRequest, saveResponse} from "./db_service";
+import DatabaseService from "./db_service";
+import {DATABASE_NAME} from "../const";
+
+const databaseService = new DatabaseService(DATABASE_NAME);
 
 var request = require('request');
 //to debug the input and output data
@@ -33,7 +36,7 @@ exports.sendRequest = async function (res, uri, formData, dbIdentification, view
         options.headers["Content-Type"] = 'application/x-www-form-urlencoded';
     }
 
-    saveRequest(options, dbIdentification);
+    databaseService.saveRequest(options, dbIdentification);
     let streamBuffers = [];
 
     return new Promise(function (resolve, reject) {
@@ -50,7 +53,7 @@ exports.sendRequest = async function (res, uri, formData, dbIdentification, view
             let bodyResponse = '';
             if (body != null) {
                 bodyResponse = pd.xml(body);
-                saveResponse(body, dbIdentification);
+                databaseService.saveResponse(body, dbIdentification);
             }
             let responseHeaders = '';
             if (response != null && response.headers != null) {
