@@ -320,7 +320,7 @@ header {
 /** CONTAINERS **/
 .container {
   float: left;
-  width: 475px;
+  width: 300px;
 }
 .block {
   margin-bottom: 25px;
@@ -329,10 +329,9 @@ header {
 }
 /******************************************** LEFT CONTAINER *****************************************/
 .left-container {
-  width: 300px;
 }
 .menu-box {
-  height: 420px;
+  height: 360px;
 }
 .menu-box .titular {
   background: #11a8ab;
@@ -761,8 +760,7 @@ p.center-date {
 }
 /************************************************** MIDDLE CONTAINER **********************************/
 .middle-container {
-  width: 625px;
-  margin: 0 0 0 25px;
+  margin: 0 25px;
 }
 .profile {
   height: 410px;

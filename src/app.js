@@ -1,27 +1,33 @@
 import web from './routes/web'
 import api from './routes/api'
+import handlebars from 'express-handlebars';
 import {DATABASE_CONNECTION_URL} from "./const";
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-var overview = require('./routes/overview');
-var sendRequest = require('./routes/send_letter');
-var ticket = require('./routes/ticket');
-
+let express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const insecure = require('insecure');
-var db = require('./services/db');
 
-var app = express();
+const bodyParser = require('body-parser');
+const index = require('./routes/index');
+let db = require('./services/db');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+const app = express();
+
+app.set('views', path.join(__dirname, 'views_html'));
+app.set('view engine', 'html');
+app.engine('html', handlebars({
+    defaultLayout: 'main', extname: '.html',
+    layoutsDir: path.join(__dirname, 'views_html', 'layouts'),
+    partialsDir: path.join(__dirname, 'views_html', 'includes'),
+    helpers: {
+        whichLeftMenu: function (name) {
+            return name;
+        }
+    }
+}));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -30,15 +36,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/overview', overview);
-app.use('/send-request', sendRequest);
-app.use('/ticket', ticket);
 app.use('/web', web);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -60,16 +63,6 @@ console.log('This must be 0');
 console.log(process.env.NODE_TLS_REJECT_UNAUTHORIZED); // => '0'
 
 // Connect to Mongo on start
-/*db.connect('mongodb://localhost:27017', function(err) {
-    if (err) {
-        console.log('Unable to connect to Mongo');
-        //process.exit(1)
-    } else {
-        console.log("Connected successfully to Mongo server");
-    }
-});*/
-
-
 db.connectAsync(DATABASE_CONNECTION_URL).then((result) => {
     if (result) {
         console.log("Connected successfully to Mongo server with result: ", result)

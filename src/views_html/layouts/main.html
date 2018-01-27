@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="screen"/>
+</head>
+<body>
+<div class="main-container">
+    {{> menu }}
+
+    {{> (whichLeftMenu menuName) }}
+
+    <div class="middle-container container">
+        {{{ body }}}
+
+    </div>
+</div> <!-- end main-container -->
+</body>
+</html>
