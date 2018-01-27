@@ -1,5 +1,5 @@
 import express from 'express';
-import LetterController from "../controllers/letter_controller";
+import LetterController from "../controllers/api/letter_controller";
 import DatabaseService from "../services/db_service";
 import {DATABASE_NAME} from "../const";
 

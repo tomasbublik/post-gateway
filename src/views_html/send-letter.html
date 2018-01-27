@@ -1,0 +1,22 @@
+<div class="join-newsletter block"> <!-- JOIN NEWSLETTER (RIGHT-CONTAINER) -->
+    <h2 class="titular">Send the letters request</h2>
+    <div class="input-container">
+        <form action="/web/send-letter" method="post" id="send_form">
+            <a href="javascript:" class="subscribe button"
+               onclick="document.getElementById('send_form').submit();">Send testing letter</a>
+        </form>
+    </div>
+</div>
+
+<p>
+    {{error}}
+</p>
+<p style="white-space:pre;">
+    {{bodyResponse}}
+</p>
+<p>
+    {{headers}}
+</p>
+<p>
+    {{respBody}}
+</p>

@@ -1,4 +1,4 @@
-import {saveLetter} from "../services/db_service";
+import {saveLetter} from "../../services/db_service";
 
 const PAGE_TITLE = 'API Insert letter page';
 const view = 'insert_letter';
