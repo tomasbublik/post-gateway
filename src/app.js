@@ -1,6 +1,10 @@
 import web from './routes/web'
 import api from './routes/api'
-import handlebars from 'express-handlebars';
+import exphbs from 'express-handlebars';
+
+const Handlebars = require('handlebars');
+const HandlebarsIntl = require('handlebars-intl');
+
 import {DATABASE_CONNECTION_URL} from "./const";
 
 let express = require('express');
@@ -18,16 +22,50 @@ const app = express();
 
 app.set('views', path.join(__dirname, 'views_html'));
 app.set('view engine', 'html');
-app.engine('html', handlebars({
+app.engine('html', exphbs({
     defaultLayout: 'main', extname: '.html',
     layoutsDir: path.join(__dirname, 'views_html', 'layouts'),
     partialsDir: path.join(__dirname, 'views_html', 'includes'),
     helpers: {
         whichLeftMenu: function (name) {
             return name;
-        }
+        },
+        //TODO maybe do it globally
+        /*niceDate: function(dateTime) {
+            moment(dateTime).format('D MMM YYYY @ H:mm');
+        }*/
     }
 }));
+
+HandlebarsIntl.registerWith(Handlebars);
+Handlebars.registerHelper('customDateFormat', function (value) {
+    const context = {
+        value: value
+    };
+
+    const intlData = {
+        "locales": "cs-CZ",
+        "formats": {
+            "date": {
+                "short": {
+                    "day": "numeric",
+                    "month": "long",
+                    "year": "numeric"
+                }
+            }
+        }
+    };
+
+    // use the formatDate helper from handlebars-intl
+    /*const template = Handlebars.compile('{{formatRelative value}}');*/
+    const template = Handlebars.compile('{{formatDate value "short"}}');
+
+    const compiled = template(context, {
+        data: {intl: intlData}
+    });
+
+    return compiled
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

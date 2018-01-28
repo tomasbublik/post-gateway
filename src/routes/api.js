@@ -7,8 +7,8 @@ const router = express.Router();
 const databaseService = new DatabaseService(DATABASE_NAME);
 const letterController = new LetterController(databaseService);
 
-router.get('/', function (req, res) {
-    letterController.get(req, res);
+router.get('/insert', function (req, res) {
+    LetterController.get(req, res);
 });
 
 router.post('/insert', async function (req, res) {

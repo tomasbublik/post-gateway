@@ -1,0 +1,28 @@
+<div class="join-newsletter block"> <!-- JOIN NEWSLETTER (RIGHT-CONTAINER) -->
+    <h2 class="titular">Send the letters request</h2>
+    <div class="input-container">
+        <form action="/web/overview" method="post" id="send_form">
+            <input name='delivery_number' type="text" placeholder="Delivery number" class="email text-input">
+            <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span>
+            </div>
+            <input type="text" name='date' value="{{date}}" placeholder="Date (yyyymmdd)" class="email text-input">
+            <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span>
+            </div>
+            <a href="javascript:" class="subscribe button"
+               onclick="document.getElementById('send_form').submit();">Send</a>
+        </form>
+    </div>
+</div>
+
+<p>
+    {{error}}
+</p>
+<p style="white-space:pre;">
+    {{bodyResponse}}
+</p>
+<p>
+    {{headers}}
+</p>
+<p>
+    {{respBody}}
+</p>

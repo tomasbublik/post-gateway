@@ -2,16 +2,16 @@ import {CREDENTIALS} from "../../const";
 import {sendRequest} from "../../services/post_service";
 
 const DELIVERIES_IDENTIFICATION = 'deliveries_overview';
-const view = 'letters';
+const view = 'overviews';
 const PAGE_TITLE = 'Deliveries overview';
 
 export default class OverviewController {
 
-    showLetters(req, res, leftMenu) {
+    showOverviews(req, res, leftMenu) {
         res.render(view, {title: PAGE_TITLE, date: getCurrentDateFormatted(), delivery_number: '', menuName: leftMenu});
     }
 
-    async sendLettersRequest(req, res, leftMenu) {
+    async sendOverviewRequest(req, res, leftMenu) {
 
         console.log('Delivery request received');
 
