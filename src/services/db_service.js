@@ -1,9 +1,12 @@
 "use strict";
 
-import {to_json} from "xmljson/lib/index";
+import { to_json } from "xmljson/lib/index";
 import * as db from "./db";
 import DataUtils from "../utils/data_utils";
-import {DATABASE_NAME} from "../const";
+import { DATABASE_NAME } from "../const";
+import mongo from 'mongodb';
+
+const ObjectId = mongo.ObjectID;
 
 export default class DatabaseService {
 
@@ -48,6 +51,33 @@ export default class DatabaseService {
                 } else {
                     console.log("Letter inserted into the collection");
                     resolve(result);
+                }
+            });
+        });
+    }
+
+    async getLettersForChecking() {
+        const collection = db.getCollectionFromDB(this.databaseName, 'letters');
+        return new Promise(function (resolve, reject) {
+            collection.find({}).toArray(function (err, result) {
+                if (err != null) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
+
+    async getLetterDetail(letterId) {
+        const collection = db.getCollectionFromDB(this.databaseName, 'letters');
+        return new Promise(function (resolve, reject) {
+            collection.findOne({ _id: ObjectId(letterId) }, function (err, document) {
+                if (err != null) {
+                    reject(err);
+                } else {
+                    console.log(document);
+                    resolve(document);
                 }
             });
         });

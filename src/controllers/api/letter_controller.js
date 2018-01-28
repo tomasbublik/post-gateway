@@ -8,16 +8,23 @@ export default class LetterController {
         this.databaseService = databaseService;
     }
 
-    get(req, res) {
+    static get(req, res) {
         res.render(view, {title: PAGE_TITLE});
     }
 
-    async insert(req, res) {
+    async insert(req, res, next) {
         console.log('Insert letter request received');
+        let incomingLetter = req.body.letter;
+        let result;
+        if (incomingLetter != null) {
+            result = await this.databaseService.saveLetter(req.body.letter);
+        } else {
+            res.status(500).json('Letter data empty');
+            return next(err);
+        }
 
-        await this.databaseService.saveLetter(req.body.letter);
+        console.log('About to send the answer');
 
-        console.log('About to show the screen');
-        res.render(view, {title: PAGE_TITLE});
+        res.json({response_code: 'Saved successfully', ...result})
     }
 }

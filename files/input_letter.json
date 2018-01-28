@@ -1,5 +1,6 @@
 {
   "letter": {
+    "external_id": "789456",
     "sender_name": "FOXX s.r.o.",
     "sender_street": "Na Štáhlavce",
     "sender_house_number": "1255",
@@ -9,7 +10,7 @@
     "destination_street": "Česká",
     "destination_house_number": "12",
     "destination_city": "Frýdek Mísek",
-    "destination_zip": "73801",
+    "destination_zip_code": "73801",
     "files": {
       "file": [
         {

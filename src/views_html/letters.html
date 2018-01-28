@@ -1,28 +1,18 @@
-<div class="join-newsletter block"> <!-- JOIN NEWSLETTER (RIGHT-CONTAINER) -->
-    <h2 class="titular">Send the letters request</h2>
-    <div class="input-container">
-        <form action="/web/letters" method="post" id="send_form">
-            <input name='delivery_number' type="text" placeholder="Delivery number" class="email text-input">
-            <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span>
-            </div>
-            <input type="text" name='date' value="{{date}}" placeholder="Date (yyyymmdd)" class="email text-input">
-            <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span>
-            </div>
-            <a href="javascript:" class="subscribe button"
-               onclick="document.getElementById('send_form').submit();">Send</a>
-        </form>
-    </div>
-</div>
+<p>{{title}}</p>
 
-<p>
-    {{error}}
-</p>
-<p style="white-space:pre;">
-    {{bodyResponse}}
-</p>
-<p>
-    {{headers}}
-</p>
-<p>
-    {{respBody}}
-</p>
+<div class="weather block clear"> <!-- WEATHER (MIDDLE-CONTAINER) -->
+    <h2 class="titular"><span class="icon entypo-location"></span><strong>List of letters</strong></h2>
+    <ul class="next-days">
+        {{#each letters}}
+        <li>
+            <a href="/web/letter-detail/{{this.id}}">
+                <p class="next-days-date"><span class="day">{{this.senderName}}, {{this.senderStreet}}, {{this.senderHouseNumber}}, {{this.senderCity}}</span>
+                </p>
+                <!--<span class="scnd-font-color">{{formatDate this.dateCreated short}}</span>-->
+                <span class="scnd-font-color">{{customDateFormat this.dateCreated}}</span>
+                <p class="next-days-temperature">25º<span class="icon icon-cloudy scnd-font-color"></span></p>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</div>
