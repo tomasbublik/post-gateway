@@ -15,7 +15,7 @@ export default class WebLettersController {
     }
 
     async showLetterDetail(req, res, letterId, leftMenu) {
-        let letter = await this.lettersService.getLetterDetail(letterId);
+        let letter = await this.lettersService.loadLetterDetail(letterId);
         console.log("What is the letter id?: " + letterId);
         res.render('letter-detail', {
             title: 'This will be the letter detail page',

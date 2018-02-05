@@ -1,7 +1,14 @@
 <div class="join-newsletter block"> <!-- JOIN NEWSLETTER (RIGHT-CONTAINER) -->
-    <h2 class="titular">Send the letters request</h2>
+    <h2 class="titular">Letter detail and send request page</h2>
     <div class="input-container">
+        <p>{{letter.id}}</p>
+        <p>{{letter.destinationName}}</p>
+        <p>{{letter.destinationStreet}}</p>
+        <p>{{letter.destinationHouseNumber}}</p>
+        <p>{{letter.destinationCity}}</p>
+        <p>{{letter.state}}</p>
         <form action="/web/send-letter" method="post" id="send_form">
+            <input id="letterId" name="letterId" type="hidden" value="{{letter.id}}">
             <a href="javascript:" class="subscribe button"
                onclick="document.getElementById('send_form').submit();">Send testing letter</a>
         </form>
@@ -17,6 +24,7 @@
 <p>
     {{headers}}
 </p>
+<!--
 <p>
     {{respBody}}
-</p>
+</p>-->

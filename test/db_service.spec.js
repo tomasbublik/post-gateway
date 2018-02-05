@@ -3,6 +3,7 @@
 import DatabaseService from "../src/services/db_service";
 import {DATABASE_CONNECTION_URL, TEST_DATABASE_NAME} from "../src/const";
 import db from "../src/services/db";
+import * as assert from "assert";
 
 let databaseService = new DatabaseService(TEST_DATABASE_NAME);
 
@@ -57,6 +58,10 @@ describe('DatabaseService', () => {
             let result = await databaseService.saveLetter(letter);
             expect(result).to.not.be.empty;
         });
-
+        it('id for loading should have 12 bytes', async () => {
+            databaseService.getLetterDetail('12345678911').catch(err => { // this handles the `new Error` rejection above
+                assert.equal(err.message, 'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters');
+            });
+        });
     });
 });
