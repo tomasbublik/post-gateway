@@ -12,7 +12,8 @@ export default class Letter {
                 destinationHouseNumber,
                 destinationCity,
                 destinationZipCode,
-                dateCreated) {
+                dateCreated,
+                state) {
         this.id = id;
         this.externalId = externalId;
         this.senderName = senderName;
@@ -20,11 +21,12 @@ export default class Letter {
         this.senderHouseNumber = senderHouseNumber;
         this.senderCity = senderCity;
         this.senderZipCode = senderZipCode;
-        this.destinatonName = destinationName;
+        this.destinationName = destinationName;
         this.destinationStreet = destinationStreet;
-        this.destinationHouseNumer = destinationHouseNumber;
+        this.destinationHouseNumber = destinationHouseNumber;
         this.destinationCity = destinationCity;
         this.destinationZipCode = destinationZipCode;
         this.dateCreated = dateCreated;
+        this.state = state;
     }
 }

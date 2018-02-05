@@ -61,7 +61,7 @@ exports.sendRequest = async function (res, uri, formData, dbIdentification, view
             }
             let renderOptions = {
                 error: 'Error: ' + error,
-                bodyResponse: 'Response body: ' + bodyResponse,
+                bodyResponse: bodyResponse,
                 headers: 'Headers: ' + responseHeaders,
                 respBody: 'Body: ' + body,
                 dataBuffer: Buffer.concat(streamBuffers)

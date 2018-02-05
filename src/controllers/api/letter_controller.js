@@ -1,11 +1,13 @@
 import {saveLetter} from "../../services/db_service";
+import MultiPartFormParser from "../../utils/multipart_form_parser";
 
 const PAGE_TITLE = 'API Insert letter page';
 const view = 'insert_letter';
 
 export default class LetterController {
-    constructor(databaseService) {
+    constructor(databaseService, letterService) {
         this.databaseService = databaseService;
+        this.letterService = letterService;
     }
 
     static get(req, res) {
@@ -14,17 +16,31 @@ export default class LetterController {
 
     async insert(req, res, next) {
         console.log('Insert letter request received');
-        let incomingLetter = req.body.letter;
-        let result;
-        if (incomingLetter != null) {
-            result = await this.databaseService.saveLetter(req.body.letter);
+
+        let multipartFormParser = new MultiPartFormParser(req);
+
+        let parseResult = await multipartFormParser.parseRequest();
+
+        if (parseResult === 'OK') {
+            await this.letterService.persistLetter(multipartFormParser.letter, multipartFormParser.fileData);
         } else {
             res.status(500).json('Letter data empty');
-            return next(err);
+            return next(parseResult);
         }
 
         console.log('About to send the answer');
 
-        res.json({response_code: 'Saved successfully', ...result})
+        res.json({response_code: 'Saved successfully', ...parseResult})
+    }
+
+    async checkState(req, res, externalId) {
+        console.log('External check state request received for external id: ' + externalId);
+        try {
+            let letterIdAndState = await this.letterService.getLetterState(externalId);
+
+            res.json(letterIdAndState);
+        } catch (e) {
+            res.json({error: e.toString()});
+        }
     }
 }

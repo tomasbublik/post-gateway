@@ -1,9 +1,9 @@
 "use strict";
 
-import { to_json } from "xmljson/lib/index";
+import {to_json} from "xmljson/lib/index";
 import * as db from "./db";
 import DataUtils from "../utils/data_utils";
-import { DATABASE_NAME } from "../const";
+import {DATABASE_NAME} from "../const";
 import mongo from 'mongodb';
 
 const ObjectId = mongo.ObjectID;
@@ -42,7 +42,7 @@ export default class DatabaseService {
 
     async saveLetter(letter) {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
-        const data = DataUtils.appendDateAndTypeToData(letter, 'letter');
+        const data = DataUtils.appendDateTypeAndNewSateToLetter(letter, 'letter');
         return new Promise(function (resolve, reject) {
             collection.insert(data, function (err, result) {
                 if (err != null) {
@@ -72,14 +72,39 @@ export default class DatabaseService {
     async getLetterDetail(letterId) {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
         return new Promise(function (resolve, reject) {
-            collection.findOne({ _id: ObjectId(letterId) }, function (err, document) {
-                if (err != null) {
-                    reject(err);
-                } else {
-                    console.log(document);
-                    resolve(document);
-                }
-            });
+            try {
+                let objectId = ObjectId(letterId);
+                collection.findOne({_id: objectId}, function (err, document) {
+                    if (err != null) {
+                        reject(err);
+                    } else {
+                        console.log(document);
+                        resolve(document);
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+                reject(e);
+            }
+        });
+    }
+
+    async getLetterDetailByExternalId(externalId) {
+        const collection = db.getCollectionFromDB(this.databaseName, 'letters');
+        return new Promise(function (resolve, reject) {
+            try {
+                collection.findOne({"letter.external_id": externalId}, function (err, document) {
+                    if (err != null) {
+                        reject(err);
+                    } else {
+                        console.log(document);
+                        resolve(document);
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+                reject(e);
+            }
         });
     }
 }

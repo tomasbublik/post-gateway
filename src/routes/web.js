@@ -12,9 +12,9 @@ const router = express.Router();
 const webController = new WebController();
 const ticketController = new TicketController();
 const overviewController = new OverviewController();
-const sendLetterController = new SendLetterController();
 const databaseService = new DatabaseService(DATABASE_NAME);
 const lettersService = new LettersService(databaseService);
+const sendLetterController = new SendLetterController(lettersService);
 const webLettersController = new WebLettersController(lettersService);
 
 let lettersMenuName = 'letters-menu';
