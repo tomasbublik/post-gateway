@@ -1,7 +1,5 @@
-<p>{{title}}</p>
-
 <div class="weather block clear"> <!-- WEATHER (MIDDLE-CONTAINER) -->
-    <h2 class="titular"><span class="icon entypo-location"></span><strong>List of letters</strong></h2>
+    <h2 class="titular"><span class="icon fontawesome-envelope"></span><strong>{{title}}</strong></h2>
     <ul class="next-days">
         {{#each letters}}
         <li>
@@ -10,7 +8,6 @@
                 </p>
                 <!--<span class="scnd-font-color">{{formatDate this.dateCreated short}}</span>-->
                 <span class="scnd-font-color">{{customDateFormat this.dateCreated}}</span>
-                <p class="next-days-temperature">25º<span class="icon icon-cloudy scnd-font-color"></span></p>
             </a>
         </li>
         {{/each}}

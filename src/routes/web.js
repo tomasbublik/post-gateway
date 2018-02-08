@@ -60,4 +60,8 @@ router.get('/letter-detail/:letter_id', async function (req, res) {
     await webLettersController.showLetterDetail(req, res, req.params.letter_id, lettersMenuName)
 });
 
+router.get('/letter-pdf/:letter_id', async function (req, res) {
+    await webLettersController.getLetterPdf(req, res, req.params.letter_id)
+});
+
 module.exports = router;
