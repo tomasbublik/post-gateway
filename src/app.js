@@ -57,8 +57,8 @@ Handlebars.registerHelper('customDateFormat', function (value) {
     };
 
     // use the formatDate helper from handlebars-intl
-    /*const template = Handlebars.compile('{{formatRelative value}}');*/
-    const template = Handlebars.compile('{{formatDate value "short"}}');
+    const template = Handlebars.compile('{{formatRelative value}}');
+    //const template = Handlebars.compile('{{formatDate value "short"}}');
 
     const compiled = template(context, {
         data: {intl: intlData}

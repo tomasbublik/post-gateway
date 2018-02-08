@@ -36,6 +36,8 @@ export default class SendLetterController {
             }
         }, LETTER_TYPE_IDENTIFICATION, view, renderOptions);
 
+        
+
         res.render(view, responseData);
     }
 }

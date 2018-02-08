@@ -24,7 +24,7 @@ export default class LettersService {
     createLetter(dbVal) {
         if (dbVal != null) {
             let dataVal = dbVal.letter;
-            let letter = new Letter(
+            return new Letter(
                 dbVal._id,
                 dataVal.external_id,
                 dataVal.sender_name,
@@ -39,8 +39,6 @@ export default class LettersService {
                 dataVal.destination_zip_code,
                 new Date(dbVal.date),
                 dbVal.state);
-
-            return letter;
         }
     }
 

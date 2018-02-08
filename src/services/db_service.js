@@ -59,7 +59,7 @@ export default class DatabaseService {
     async getLettersForChecking() {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
         return new Promise(function (resolve, reject) {
-            collection.find({}).toArray(function (err, result) {
+            collection.find({state: "NEW"}).toArray(function (err, result) {
                 if (err != null) {
                     reject(err);
                 } else {
@@ -78,7 +78,7 @@ export default class DatabaseService {
                     if (err != null) {
                         reject(err);
                     } else {
-                        console.log(document);
+                        //console.log(document);
                         resolve(document);
                     }
                 });
