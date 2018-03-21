@@ -1,3 +1,5 @@
+import {FILES_DIR, PDF_EXTENSION} from "../const";
+
 const fs = require('fs');
 const DOMParser = require('xmldom').DOMParser;
 
@@ -45,18 +47,29 @@ const writeFile = (path, data, opts = 'utf8') =>
         })
     });
 
+const deleteFile = (path) => {
+    if (fs.existsSync(path)) {
+        fs.unlink(path, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log("Deleted file: " + path);
+        });
+    }
+};
+
 const prepareXmlWithData = (letter, xmlTemplate, attachmentContent) =>
     new Promise(async (res, rej) => {
         try {
             let jpgLogoFileContent = "";
             try {
-                jpgLogoFileContent = await readFileBase64('files/logo.jpg');
+                jpgLogoFileContent = await readFileBase64(FILES_DIR + 'logo.jpg');
             } catch (e) {
                 console.log("Logo file loading failure: " + e);
             }
             let testFileContent = "";
             try {
-                testFileContent = await readFileBase64('files/test.pdf');
+                testFileContent = await readFileBase64(FILES_DIR + 'test' + PDF_EXTENSION);
             } catch (e) {
                 console.log("Test file loading failure: " + e);
             }
@@ -108,7 +121,7 @@ function createStreamFromFile(fileName) {
 }
 
 function logInputFile() {
-    fs.readFile('files/first_letter.xml', {encoding: 'utf-8'}, function (err, data) {
+    fs.readFile(FILES_DIR + 'first_letter.xml', {encoding: 'utf-8'}, function (err, data) {
         if (!err) {
             console.log('Input file data: ' + data);
         } else {
@@ -121,5 +134,6 @@ module.exports = {
     readFile,
     readFileBase64,
     writeFile,
-    prepareXmlWithData
+    prepareXmlWithData,
+    deleteFile
 };

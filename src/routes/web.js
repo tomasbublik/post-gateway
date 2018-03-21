@@ -7,6 +7,7 @@ import WebLettersController from "../controllers/web/web_letters_controller";
 import DatabaseService from "../services/db_service";
 import { DATABASE_NAME } from "../const";
 import LettersService from "../services/letters_service";
+import OrdersService from "../services/orders_service";
 
 const router = express.Router();
 const webController = new WebController();
@@ -14,7 +15,8 @@ const ticketController = new TicketController();
 const overviewController = new OverviewController();
 const databaseService = new DatabaseService(DATABASE_NAME);
 const lettersService = new LettersService(databaseService);
-const sendLetterController = new SendLetterController(lettersService);
+const ordersService = new OrdersService(databaseService);
+const sendLetterController = new SendLetterController(lettersService, ordersService, databaseService);
 const webLettersController = new WebLettersController(lettersService);
 
 let lettersMenuName = 'letters-menu';
@@ -58,6 +60,10 @@ router.get('/letters', async function (req, res) {
 
 router.get('/letter-detail/:letter_id', async function (req, res) {
     await webLettersController.showLetterDetail(req, res, req.params.letter_id, lettersMenuName)
+});
+
+router.get('/delete-letter/:letter_id', async function (req, res) {
+    await webLettersController.deleteLetter(req, res, req.params.letter_id)
 });
 
 router.get('/letter-pdf/:letter_id', async function (req, res) {

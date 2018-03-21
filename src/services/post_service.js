@@ -1,8 +1,11 @@
 "use strict";
 import DatabaseService from "./db_service";
 import {DATABASE_NAME} from "../const";
+import {LETTER_NEW_STATE} from "../const";
+import LetterService from "./letters_service";
 
 const databaseService = new DatabaseService(DATABASE_NAME);
+const letterService = new LetterService(databaseService);
 
 var request = require('request');
 //to debug the input and output data
@@ -26,6 +29,10 @@ let options = {
     method: 'POST',
     headers: headers,
     formData: ""
+};
+
+exports.newLettersSize = async function () {
+    return await letterService.getNumberOfLettersByState(LETTER_NEW_STATE);
 };
 
 exports.sendRequest = async function (res, uri, formData, dbIdentification, view, externalOptions) {

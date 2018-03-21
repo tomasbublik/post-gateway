@@ -1,5 +1,5 @@
 import {sendRequest} from "../../services/post_service";
-import {CREDENTIALS} from "../../const";
+import {CREDENTIALS, PDF_EXTENSION} from "../../const";
 import * as fs from "fs";
 
 const POSTAL_TICKET_IDENTIFICATION = 'postal_ticket';
@@ -30,11 +30,11 @@ export default class TicketController {
             'typvystupu': 'D',
         }, POSTAL_TICKET_IDENTIFICATION, view, renderOptions);
 
-        let file = fs.createWriteStream(postalNumber + ".pdf");
+        let file = fs.createWriteStream(postalNumber + PDF_EXTENSION);
         res.pipe(file);
         file.write(responseData.dataBuffer, () => {
             file.end();
-            let fileToDownload = postalNumber + ".pdf";
+            let fileToDownload = postalNumber + PDF_EXTENSION;
             //Makes no sense to write all the data file into the html page
             res.download(fileToDownload);
         });
