@@ -1,4 +1,5 @@
 import {readFileBase64} from "../../utils/file_utils";
+import {FILES_DIR, PDF_EXTENSION} from "../../const";
 
 export default class WebLettersController {
 
@@ -25,10 +26,17 @@ export default class WebLettersController {
         })
     }
 
+    async deleteLetter(req, res, letterId) {
+        await this.lettersService.deleteLetter(letterId);
+        console.log(letterId + " was deleted");
+
+        res.redirect("../../web/letters");
+    }
+
     async getLetterPdf(req, res, letterId) {
         let fileContent = "";
         try {
-            fileContent = await readFileBase64('files/' + letterId + '.pdf');
+            fileContent = await readFileBase64(FILES_DIR + letterId + PDF_EXTENSION);
         } catch (e) {
             console.log("Error during letter loading: " + e);
         }

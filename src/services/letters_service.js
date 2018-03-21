@@ -1,6 +1,7 @@
 import Letter from '../models/letter';
-import {prepareXmlWithData, writeFile, readFile, readFileBase64} from "../utils/file_utils";
+import {prepareXmlWithData, writeFile, readFile, readFileBase64, deleteFile} from "../utils/file_utils";
 import mongo from 'mongodb';
+import {FILES_DIR, PDF_EXTENSION} from "../const";
 
 const ObjectId = mongo.ObjectID;
 
@@ -57,17 +58,27 @@ export default class LettersService {
         return this.createLetter(letterDbData);
     }
 
+    async deleteLetter(letterId) {
+        try {
+            const filePath = FILES_DIR + letterId + PDF_EXTENSION;
+            deleteFile(filePath);
+        } catch (e) {
+            console.log("Unable to delete file: " + filePath);
+        }
+        return await this.databaseService.deleteLetter(letterId);
+    }
+
     async constructXmlPostLetter(letterId) {
         let letter = await this.loadLetterDetail(letterId);
         let xmlFileContent = "";
         try {
-            xmlFileContent = await readFile('files/first_letter.xml');
+            xmlFileContent = await readFile(FILES_DIR + 'first_letter.xml');
         } catch (e) {
             console.log("Error during template loading: " + e);
         }
         let attachmentFileContent = "";
         try {
-            attachmentFileContent = await readFileBase64('files/' + letterId + '.pdf');
+            attachmentFileContent = await readFileBase64(FILES_DIR + letterId + PDF_EXTENSION);
         } catch (e) {
             console.log("Error during letter loading: " + e);
         }
@@ -82,7 +93,7 @@ export default class LettersService {
         }
         let id = ObjectId(dbResult.insertedIds[0].id).toString();
         if (fileData != null) {
-            await writeFile('files/' + id + '.pdf', fileData);
+            await writeFile(FILES_DIR + id + PDF_EXTENSION, fileData);
         }
 
         return id;
@@ -96,5 +107,15 @@ export default class LettersService {
         let letter = this.createLetter(letterDbData);
 
         return {external_id: letter.external_id, state: letter.state};
+    }
+
+    async getNumberOfLettersByState(state) {
+        let lettersNumber = 0;
+        try {
+            lettersNumber = await this.databaseService.getNumberOfLettersWithState(state);
+        } catch (e) {
+            console.log(e);
+        }
+        return lettersNumber;
     }
 }

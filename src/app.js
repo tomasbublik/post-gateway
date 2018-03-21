@@ -1,11 +1,11 @@
 import web from './routes/web'
 import api from './routes/api'
 import exphbs from 'express-handlebars';
-
-const Handlebars = require('handlebars');
-const HandlebarsIntl = require('handlebars-intl');
+import {newLettersSize} from "./services/post_service";
 
 import {DATABASE_CONNECTION_URL} from "./const";
+import session from "express-session";
+import {setLettersNumber, setupHandlebars} from "./www_helper";
 
 let express = require('express');
 const path = require('path');
@@ -19,6 +19,17 @@ const index = require('./routes/index');
 let db = require('./services/db');
 
 const app = express();
+
+app.use(session({
+    secret: "secreto",
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+        path: "/",
+    }
+}));
+
+app.all('*', setLettersNumber);
 
 app.set('views', path.join(__dirname, 'views_html'));
 app.set('view engine', 'html');
@@ -37,35 +48,7 @@ app.engine('html', exphbs({
     }
 }));
 
-HandlebarsIntl.registerWith(Handlebars);
-Handlebars.registerHelper('customDateFormat', function (value) {
-    const context = {
-        value: value
-    };
-
-    const intlData = {
-        "locales": "cs-CZ",
-        "formats": {
-            "date": {
-                "short": {
-                    "day": "numeric",
-                    "month": "long",
-                    "year": "numeric"
-                }
-            }
-        }
-    };
-
-    // use the formatDate helper from handlebars-intl
-    const template = Handlebars.compile('{{formatRelative value}}');
-    //const template = Handlebars.compile('{{formatDate value "short"}}');
-
-    const compiled = template(context, {
-        data: {intl: intlData}
-    });
-
-    return compiled
-});
+setupHandlebars();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -97,7 +80,6 @@ app.use(function (err, req, res, next) {
 
 insecure();
 
-console.log('This must be 0');
 console.log(process.env.NODE_TLS_REJECT_UNAUTHORIZED); // => '0'
 
 // Connect to Mongo on start
