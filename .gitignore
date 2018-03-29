@@ -1,2 +1,5 @@
 dest/
 node_modules/
+/.vscode/
+/.idea/
+/coverage/

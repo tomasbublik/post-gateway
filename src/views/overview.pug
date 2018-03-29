@@ -1,0 +1,22 @@
+extends layout
+
+block link
+    -var selected = 'overview';
+block content
+    h1= title
+    p Welcome to #{title}
+        form(method='POST' action='/overview')
+            div.input
+                span.label Delivery number:
+                input(type='text', id='delivery_number', name='delivery_number', value=delivery_number)
+            div.input
+                span.label Date: (yyyymmdd):
+                input(type='text', id='date', name='date', value=date)
+            div.actions
+                input(type="submit", value="Send")
+    p #{error}
+    p(style='white-space:pre;')
+        #{bodyResponse}
+
+    p #{headers}
+    p #{respBody}

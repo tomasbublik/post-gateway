@@ -1,0 +1,15 @@
+<div class="weather block clear"> <!-- WEATHER (MIDDLE-CONTAINER) -->
+    <h2 class="titular"><span class="icon fontawesome-envelope"></span><strong>{{title}}</strong></h2>
+    <ul class="next-days">
+        {{#each letters}}
+        <li>
+            <a href="/web/letter-detail/{{this.id}}">
+                <p class="next-days-date"><span class="day">{{this.senderName}}, {{this.senderStreet}}, {{this.senderHouseNumber}}, {{this.senderCity}}</span>
+                </p>
+                <!--<span class="scnd-font-color">{{formatDate this.dateCreated short}}</span>-->
+                <span class="scnd-font-color">{{customDateFormat this.dateCreated}}</span>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</div>

@@ -1,0 +1,26 @@
+<div class="join-newsletter block"> <!-- JOIN NEWSLETTER (RIGHT-CONTAINER) -->
+    <h2 class="titular">Get post tickets</h2>
+    <div class="input-container">
+        <form action="/web/ticket" method="post" id="send_form">
+            <input name='postal_number' type="text" placeholder="Postal number" class="email text-input">
+            <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span>
+            </div>
+            <a href="javascript:" class="subscribe button"
+               onclick="document.getElementById('send_form').submit();">Send</a>
+        </form>
+    </div>
+</div>
+
+<p>
+    {{error}}
+</p>
+<p style="white-space:pre;">
+    {{bodyResponse}}
+</p>
+<p>
+    {{headers}}
+</p>
+<!--
+<p>
+    {{respBody}}
+</p>-->
