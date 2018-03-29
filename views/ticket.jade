@@ -1,0 +1,19 @@
+extends layout
+
+block link
+  -var selected = 'ticket';
+block content
+    h1= title
+    p Welcome to #{title}
+        form(method='POST' action='/ticket')
+            div.input
+                span.label Postal number:
+                input(type='text', id='postal_number', name='postal_number', value='#{postal_number}')
+            div.actions
+                input(type="submit", value="Send")
+    p #{error}
+    p(style='white-space:pre;')
+        #{bodyResponse}
+
+    p #{headers}
+    p #{respBody}
