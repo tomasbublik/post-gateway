@@ -43,7 +43,7 @@ router.post('/ticket', async function (req, res) {
 });
 
 router.get('/ticket', function (req, res) {
-    ticketController.showTickets(req, res, lettersMenuName)
+    ticketController.showTickets(req, res, lettersMenuName);
 });
 
 router.post('/send-letter', async function (req, res) {
@@ -51,23 +51,23 @@ router.post('/send-letter', async function (req, res) {
 });
 
 router.get('/send-letter', function (req, res) {
-    sendLetterController.showPage(req, res, lettersMenuName)
+    sendLetterController.showPage(req, res, lettersMenuName);
 });
 
 router.get('/letters', async function (req, res) {
-    await webLettersController.showLetters(req, res, lettersMenuName)
+    await webLettersController.showLetters(req, res, lettersMenuName);
 });
 
 router.get('/letter-detail/:letter_id', async function (req, res) {
-    await webLettersController.showLetterDetail(req, res, req.params.letter_id, lettersMenuName)
+    await webLettersController.showLetterDetail(req, res, req.params.letter_id, lettersMenuName);
 });
 
 router.get('/delete-letter/:letter_id', async function (req, res) {
-    await webLettersController.deleteLetter(req, res, req.params.letter_id)
+    await webLettersController.deleteLetter(req, res, req.params.letter_id);
 });
 
 router.get('/letter-pdf/:letter_id', async function (req, res) {
-    await webLettersController.getLetterPdf(req, res, req.params.letter_id)
+    await webLettersController.getLetterPdf(req, res, req.params.letter_id);
 });
 
 module.exports = router;

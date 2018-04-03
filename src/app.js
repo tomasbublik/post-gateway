@@ -1,7 +1,6 @@
-import web from './routes/web'
-import api from './routes/api'
 import exphbs from 'express-handlebars';
-import {newLettersSize} from "./services/post_service";
+import web from './routes/web';
+import api from './routes/api';
 
 import {DATABASE_CONNECTION_URL} from "./const";
 import session from "express-session";
@@ -68,7 +67,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -85,7 +84,7 @@ console.log(process.env.NODE_TLS_REJECT_UNAUTHORIZED); // => '0'
 // Connect to Mongo on start
 db.connectAsync(DATABASE_CONNECTION_URL).then((result) => {
     if (result) {
-        console.log("Connected successfully to Mongo server with result: ", result)
+        console.log("Connected successfully to Mongo server with result: ", result);
     } else {
         console.log("Connected successfully to Mongo server");
     }

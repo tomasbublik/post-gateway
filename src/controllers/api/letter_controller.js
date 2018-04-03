@@ -1,4 +1,3 @@
-import {saveLetter} from "../../services/db_service";
 import MultiPartFormParser from "../../utils/multipart_form_parser";
 
 const PAGE_TITLE = 'API Insert letter page';
@@ -30,7 +29,7 @@ export default class LetterController {
 
         console.log('About to send the answer');
 
-        res.json({response_code: 'Saved successfully', ...parseResult})
+        res.json({response_code: 'Saved successfully', ...parseResult});
     }
 
     async checkState(req, res, externalId) {

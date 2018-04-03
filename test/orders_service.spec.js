@@ -1,12 +1,10 @@
 "use strict";
 
 import DatabaseService from "../src/services/db_service";
-import {DATABASE_CONNECTION_URL, TEST_DATABASE_NAME} from "../src/const";
-import db from "../src/services/db";
+import {TEST_DATABASE_NAME} from "../src/const";
 
 let databaseService = new DatabaseService(TEST_DATABASE_NAME);
 import OrdersService from '../src/services/orders_service';
-import * as assert from "assert";
 
 let ordersService = new OrdersService(databaseService);
 

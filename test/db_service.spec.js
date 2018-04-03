@@ -50,7 +50,7 @@ describe('DatabaseService', () => {
             done();
         }).catch((error) => {
             done(error);
-        })
+        });
     });
 
     describe('data persistence - ', () => {
@@ -60,7 +60,8 @@ describe('DatabaseService', () => {
         });
         it('id for loading should have 12 bytes', async () => {
             databaseService.getLetterDetail('12345678911').catch(err => { // this handles the `new Error` rejection above
-                assert.equal(err.message, 'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters');
+                assert.equal(err.message, 'Argument passed in must be a single String of 12 bytes or a string ' +
+                    'of 24 hex characters');
             });
         });
     });

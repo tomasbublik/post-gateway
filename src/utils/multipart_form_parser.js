@@ -30,7 +30,7 @@ export default class MultiPartFormParser {
                         toString(part).then((msg) => {
                             letter = msg;
                             part.resume();
-                        })
+                        });
                     }
                 }
 
@@ -51,7 +51,7 @@ export default class MultiPartFormParser {
             // Close emitted after form parsed
             form.on('close', function () {
                 console.log('Parsing completed!');
-                resolve("OK")
+                resolve("OK");
             });
             // Parse req
             form.parse(request);
@@ -61,7 +61,7 @@ export default class MultiPartFormParser {
                 this.fileData = Buffer.concat(fileData);
                 return result;
             }).catch((error) => {
-            return error
+            return error;
         });
     }
 
