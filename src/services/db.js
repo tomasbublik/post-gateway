@@ -10,8 +10,8 @@ exports.connect = function(url, done) {
     MongoClient.connect(url, function(err, db) {
         if (err) return done(err);
         state.db = db;
-        done()
-    })
+        done();
+    });
 };
 
 exports.connectAsync = async function (url) {
@@ -26,14 +26,12 @@ exports.connectAsync = async function (url) {
             }
             state.db = db;
             resolve('OK');
-        })
+        });
     });
 };
 
-
-
 exports.getDB = function(dbName) {
-    return state.db.db(dbName)
+    return state.db.db(dbName);
 };
 
 exports.getCollectionFromDB = function(dbName, collectionName) {
@@ -42,10 +40,10 @@ exports.getCollectionFromDB = function(dbName, collectionName) {
 
 exports.close = function(done) {
     if (state.db) {
-        state.db.close(function(err, result) {
+        state.db.close(function(err) {
             state.db = null;
             state.mode = null;
-            done(err)
-        })
+            done(err);
+        });
     }
 };

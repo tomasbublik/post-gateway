@@ -10,7 +10,7 @@ const LETTER_TYPE_IDENTIFICATION = 'letter';
 const PAGE_TITLE = 'Letter sending';
 
 /* GET send request page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.render('send_request', {title: PAGE_TITLE});
 });
 

@@ -23,6 +23,6 @@ function assertData(data) {
     assert(response.stan);
     assert.equal(response.responseCode, "000");*/
     assert(data != null);
-    assert(data.table[0].type != null);
-    assert(data.table[0].date != null);
+    assert(data.date != null);
+    assert(data.type != null);
 }

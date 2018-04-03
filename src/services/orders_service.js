@@ -1,10 +1,7 @@
-import mongo from 'mongodb';
 import xml2js from 'xml2js';
 import Order from "../models/order";
 import OrderFile from "../models/file";
-import {PAYROLL_TYPO} from "../const";
 
-const ObjectId = mongo.ObjectID;
 let parseString = xml2js.parseString;
 
 export default class OrdersService {
@@ -37,7 +34,7 @@ export default class OrdersService {
                     resolve(new Order(
                         0, 0,
                         zakazka.chyby[0].$.stav,
-                        getPayrollTypeFromCode(zakazka.typvyplatneho[0]),
+                        zakazka.typvyplatneho[0],
                         zakazka.typtisku[0],
                         zakazka.obalkac4[0],
                         zakazka.tiskpoukazky[0],
@@ -55,8 +52,4 @@ export default class OrdersService {
             });
         }
     }
-}
-
-function getPayrollTypeFromCode(code) {
-    return PAYROLL_TYPO.get(code);
 }

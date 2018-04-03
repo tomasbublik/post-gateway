@@ -8,7 +8,7 @@ const DELIVERIES_IDENTIFICATION = 'deliveries_overview';
 const PAGE_TITLE = 'Deliveries overview';
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.render('overview', {title: PAGE_TITLE, date: getCurrentDateFormatted(), delivery_number: ''});
 
 });

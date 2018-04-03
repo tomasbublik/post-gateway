@@ -1,6 +1,5 @@
 import {sendRequest} from "../../services/post_service";
 import {CREDENTIALS, LETTER_SENT_STATE} from "../../const";
-import Order from "../../models/order";
 
 const LETTER_TYPE_IDENTIFICATION = 'letter';
 const PAGE_TITLE = 'Letter sending';

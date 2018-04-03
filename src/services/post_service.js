@@ -84,8 +84,8 @@ exports.sendRequest = async function (res, uri, formData, dbIdentification, view
             // unmodified http.IncomingMessage object
             response.on('data', function (data) {
                 // compressed data as it is received
-                console.log('received ' + data.length + ' bytes of compressed data')
-            })
+                console.log('received ' + data.length + ' bytes of compressed data');
+            });
         }).on('end', function () {
         });
     });

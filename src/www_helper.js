@@ -31,7 +31,7 @@ exports.setupHandlebars =  function () {
             data: {intl: intlData}
         });
 
-        return compiled
+        return compiled;
     });
 };
 

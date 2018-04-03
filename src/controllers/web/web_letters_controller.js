@@ -13,7 +13,7 @@ export default class WebLettersController {
             title: 'List of received letters',
             letters: loadedLetters,
             menuName: leftMenu,
-        })
+        });
     }
 
     async showLetterDetail(req, res, letterId, leftMenu) {
@@ -23,7 +23,7 @@ export default class WebLettersController {
             title: 'This will be the letter detail page',
             letter: letter,
             menuName: leftMenu,
-        })
+        });
     }
 
     async deleteLetter(req, res, letterId) {

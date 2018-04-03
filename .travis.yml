@@ -1,15 +1,14 @@
-language: node_js
-
-node_js:
-  - 8
-
+language: node_js # Sets which engine use to build the project
+node_js: "node" # Specifies node version to use "node"="latest"
 install:
   - npm install
-
+  - npm install -g codecov
+services: mongodb
 script:
-  - npm run lint
-  - npm run lint-test
-  - npm run cover
-
-after_script:
-  - "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+ - npm run cover
+ - codecov
+ - npm run go
+cache:
+  directories:
+    - "node_modules"
+  yarn: true
