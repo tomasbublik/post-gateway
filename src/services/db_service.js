@@ -17,7 +17,7 @@ export default class DatabaseService {
     saveRequest(inputData, type) {
         const collection = db.getCollectionFromDB(this.databaseName, 'requests');
         let data = DataUtils.appendDateAndTypeToData(inputData, type);
-        collection.insert(data, function (err, result) {
+        collection.insert(data, function (err) {
             if (err != null) {
                 console.log('Failed to save request with error: ' + JSON.stringify(err));
             } else {
@@ -30,7 +30,7 @@ export default class DatabaseService {
         const collection = db.getCollectionFromDB(this.databaseName, 'responses');
         to_json(inputData, function (error, inputData) {
             const data = DataUtils.appendDateAndTypeToData(inputData, type);
-            collection.insert(data, function (err, result) {
+            collection.insert(data, function (err) {
                 if (err != null) {
                     console.log('Failed to save response with error: ' + JSON.stringify(err));
                 } else {

@@ -9,7 +9,7 @@ const POSTAL_TICKET_IDENTIFICATION = 'postal_ticket';
 const PAGE_TITLE = 'Postal ticket';
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.render('ticket', {title: PAGE_TITLE, postal_number: ''});
 });
 

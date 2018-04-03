@@ -58,13 +58,14 @@ describe('LettersService', () => {
             done();
         }).catch((error) => {
             done(error);
-        })
+        });
     });
 
     describe('letter manipulation - ', () => {
         it('should throw error: to short id ', async () => {
             lettersService.constructXmlPostLetter('123456789').catch(err => {
-                assert.equal(err.message, 'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters');
+                assert.equal(err.message, 'Argument passed in must be a single String of 12 bytes or a string ' +
+                    'of 24 hex characters');
             });
         });
         it('should throw error: no file found ', async () => {
