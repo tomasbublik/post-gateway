@@ -68,11 +68,13 @@ describe('LettersService', () => {
                     'of 24 hex characters');
             });
         });
+
         it('should throw error: no file found ', async () => {
             lettersService.constructXmlPostLetter('123456789101').catch(err => {
                 assert.equal(err.message, 'No letter found error');
             });
         });
+
         it('should create the letter from db ', async () => {
             await persistLetter();
             let xmlToSend = await lettersService.constructXmlPostLetter(letterId);

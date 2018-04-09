@@ -4,6 +4,7 @@
     <div class="input-container">
         <p>Id: {{letter.id}}</p>
         <p>External id: {{letter.externalId}}</p>
+        <p>Created date: {{letter.dateCreated}}</p>
         <p>Destination:</p>
         <p>{{letter.destinationName}}</p>
         <p>{{letter.destinationStreet}}</p>
@@ -17,10 +18,13 @@
                     id="doubleSideCheckBox" type="checkbox"></span></p>
             <p class="next-days-temperature">C4 envelope<span class="icon scnd-font-color"><input
                     id="C4CheckBox" type="checkbox"></span></p>
+            {{#isSent letter.state}}
+            <p>sent</p>
+            {{else}}
             <a href="javascript:" class="subscribe button"
                onclick="document.getElementById('send_form').submit();">Send letter</a>
+            {{/isSent}}
         </form>
-
 
         <a href="/web/delete-letter/{{letter.id}}" class="subscribe button">Delete letter</a>
         <h1>Letter content preview</h1>
@@ -33,21 +37,17 @@
         </div>
         <canvas id="the-canvas"></canvas>
     </div>
+    <p>
+        {{error}}
+    </p>
+    <p style="white-space:pre;">
+        {{bodyResponse}}
+    </p>
+    <p>
+        {{headers}}
+    </p>
 </div>
 
-<p>
-    {{error}}
-</p>
-<p style="white-space:pre;">
-    {{bodyResponse}}
-</p>
-<p>
-    {{headers}}
-</p>
-<!--
-<p>
-    {{respBody}}
-</p>-->
 <script>
     // If absolute URL from the remote server is provided, configure the CORS
     // header on that server.

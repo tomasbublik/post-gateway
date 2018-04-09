@@ -59,7 +59,12 @@ export default class DatabaseService {
     async updateLetter(letter) {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
         return new Promise(function (resolve, reject) {
-            collection.update({_id: letter.letterId}, letter, function (err, result) {
+            collection.update({_id: letter._id}, {
+                $set: {
+                    state: letter.state,
+                    dateSent: letter.dateSent
+                }
+            }, function (err, result) {
                 if (err != null) {
                     console.log('Failed to update letter with error: ' + JSON.stringify(err));
                     reject(err);
@@ -101,10 +106,10 @@ export default class DatabaseService {
         }
     }
 
-    async getLettersForChecking() {
+    async getLettersWithState(state) {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
         return new Promise(function (resolve, reject) {
-            collection.find({state: "NEW"}).toArray(function (err, result) {
+            collection.find({state: state}).toArray(function (err, result) {
                 if (err != null) {
                     reject(err);
                 } else {
@@ -184,16 +189,17 @@ export default class DatabaseService {
         const collection = db.getCollectionFromDB(this.databaseName, 'letters');
         return new Promise(function (resolve, reject) {
             try {
-                collection.findOne({"letter.external_id": externalId}, function (err, document) {
+                collection.findOne({"letter.external_id": parseInt(externalId)}, function (err, document) {
                     if (err != null) {
+                        console.log("Error during letter by external_id query: " + err);
                         reject(err);
                     } else {
-                        console.log(document);
+                        console.log("Document found during letter by external_id query: " + document);
                         resolve(document);
                     }
                 });
             } catch (e) {
-                console.log(e);
+                console.log("Error occurred during letter by external_id query: " + e);
                 reject(e);
             }
         });
