@@ -8,9 +8,18 @@ export default class WebLettersController {
     }
 
     async showLetters(req, res, leftMenu) {
-        let loadedLetters = await this.lettersService.getAllLetters();
+        let loadedLetters = await this.lettersService.getAllReceivedLetters();
         res.render('letters', {
             title: 'List of received letters',
+            letters: loadedLetters,
+            menuName: leftMenu,
+        });
+    }
+
+    async showLettersHistory(req, res, leftMenu) {
+        let loadedLetters = await this.lettersService.getAllSentLetters();
+        res.render('letters-history', {
+            title: 'List of sent letters',
             letters: loadedLetters,
             menuName: leftMenu,
         });

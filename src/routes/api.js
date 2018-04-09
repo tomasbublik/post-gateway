@@ -17,7 +17,11 @@ router.post('/insert', async function (req, res) {
     await letterController.insert(req, res);
 });
 
-router.get('/check-state/:external_id', async function (req, res) {
+router.post('/check-states', async function (req, res) {
+    await letterController.checkMultiStates(req, res);
+});
+
+router.get('/check-state/letter/:external_id', async function (req, res) {
     await letterController.checkState(req, res, req.params.external_id);
 });
 

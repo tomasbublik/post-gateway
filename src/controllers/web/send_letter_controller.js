@@ -47,9 +47,10 @@ export default class SendLetterController {
 
 async function updateDbData(responseData, letter, letterId) {
     let order = await this.ordersService.createOrderFromXml(responseData.bodyResponse);
-    if (order.state === 0) {
+    if (order.state === "0") {
         letter.state = LETTER_SENT_STATE;
-        await this.databaseService.updateLetter(letter);
+        letter.dateSent = new Date().toISOString();
+        await this.lettersService.updateLetterAfterSent(letter);
     }
     order.letterId = letterId;
     let dbResult = await this.databaseService.saveOrUpdateOrder(order);

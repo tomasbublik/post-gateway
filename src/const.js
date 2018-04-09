@@ -5,6 +5,7 @@ export const TEST_DATABASE_NAME = 'test_postData';
 export const DATABASE_CONNECTION_URL = 'mongodb://localhost:27017';
 export const LETTER_NEW_STATE = 'NEW';
 export const LETTER_SENT_STATE = 'SENT';
+export const LETTER_CONFIRMED_STATE = 'CONFIRMED';
 export const FILES_DIR = 'files/';
 export const PDF_EXTENSION = ".pdf";
 
