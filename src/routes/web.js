@@ -58,6 +58,10 @@ router.get('/letters', async function (req, res) {
     await webLettersController.showLetters(req, res, lettersMenuName);
 });
 
+router.get('/letters-history', async function (req, res) {
+    await webLettersController.showLettersHistory(req, res, lettersMenuName);
+});
+
 router.get('/letter-detail/:letter_id', async function (req, res) {
     await webLettersController.showLetterDetail(req, res, req.params.letter_id, lettersMenuName);
 });

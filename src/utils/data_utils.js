@@ -11,7 +11,10 @@ export default class DataUtils {
 
     static appendDateTypeAndNewSateToLetter(letter, type) {
         let data = {
-            date: new Date().toISOString(), type: type, state: LETTER_NEW_STATE, ...JSON.parse(letter)
+            dateCreated: new Date().toISOString(),
+            type: type, state: LETTER_NEW_STATE,
+            dateSent: null,
+            ...JSON.parse(letter)
         };
         return data;
     }

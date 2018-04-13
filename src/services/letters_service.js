@@ -11,8 +11,17 @@ export default class LettersService {
         this.databaseService = databaseService;
     }
 
-    async getAllLetters() {
-        let lettersFromDb = await this.databaseService.getLettersForChecking();
+    async getAllReceivedLetters() {
+        let lettersFromDb = await this.databaseService.getLettersWithState("NEW");
+        return this.createLettersList(lettersFromDb);
+    }
+
+    async getAllSentLetters() {
+        let lettersFromDb = await this.databaseService.getLettersWithState("SENT");
+        return this.createLettersList(lettersFromDb);
+    }
+
+    createLettersList(lettersFromDb) {
         let letters = [];
 
         for (let val of lettersFromDb) {
@@ -24,23 +33,36 @@ export default class LettersService {
 
     createLetter(dbVal) {
         if (dbVal != null) {
-            let dataVal = dbVal.letter;
+            let letterVal = dbVal.letter;
             return new Letter(
                 dbVal._id,
-                dataVal.external_id,
-                dataVal.sender_name,
-                dataVal.sender_street,
-                dataVal.sender_house_number,
-                dataVal.sender_city,
-                dataVal.sender_zip_code,
-                dataVal.destination_name,
-                dataVal.destination_street,
-                dataVal.destination_house_number,
-                dataVal.destination_city,
-                dataVal.destination_zip_code,
-                new Date(dbVal.date),
-                dbVal.state);
+                letterVal.external_id,
+                letterVal.sender_name,
+                letterVal.sender_street,
+                letterVal.sender_house_number,
+                letterVal.sender_city,
+                letterVal.sender_zip_code,
+                letterVal.destination_name,
+                letterVal.destination_street,
+                letterVal.destination_house_number,
+                letterVal.destination_city,
+                letterVal.destination_zip_code,
+                new Date(dbVal.dateCreated),
+                dbVal.state,
+                dbVal.dateSent);
         }
+    }
+
+    createDbObjectFromLetter(letter) {
+        return {
+            _id: letter.id,
+            state: letter.state,
+            dateSent: letter.dateSent
+        };
+    }
+
+    async updateLetterAfterSent(letter) {
+        await this.databaseService.updateLetter(this.createDbObjectFromLetter(letter));
     }
 
     async getLetterDetail(letterId) {
@@ -100,13 +122,30 @@ export default class LettersService {
     }
 
     async getLetterState(externalId) {
+        let letter = await this.getLetterByExternalId(externalId);
+
+        return {external_id: letter.externalId, state: letter.state, date_sent: letter.dateSent};
+    }
+
+    async getLettersStates(externalIds) {
+        let letters = {};
+        let key = 'letters';
+        letters[key] = [];
+
+        for (let externalId of externalIds) {
+            let letter = await this.getLetterByExternalId(externalId);
+            letters[key].push({external_id: letter.externalId, state: letter.state, date_sent: letter.dateSent});
+        }
+
+        return letters;
+    }
+
+    async getLetterByExternalId(externalId) {
         let letterDbData = await this.databaseService.getLetterDetailByExternalId(externalId);
         if (letterDbData == null) {
             throw new Error("No letter by externalId: " + externalId + " found error");
         }
-        let letter = this.createLetter(letterDbData);
-
-        return {external_id: letter.external_id, state: letter.state};
+        return this.createLetter(letterDbData);
     }
 
     async getNumberOfLettersByState(state) {

@@ -1,4 +1,5 @@
 import {newLettersSize} from "./services/post_service";
+import {LETTER_SENT_STATE} from "./const";
 
 const Handlebars = require('handlebars');
 const HandlebarsIntl = require('handlebars-intl');
@@ -32,6 +33,13 @@ exports.setupHandlebars =  function () {
         });
 
         return compiled;
+    });
+
+    Handlebars.registerHelper('isSent', function(v1, options) {
+        if(v1 === LETTER_SENT_STATE) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
     });
 };
 

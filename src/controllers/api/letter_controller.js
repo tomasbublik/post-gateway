@@ -1,4 +1,5 @@
 import MultiPartFormParser from "../../utils/multipart_form_parser";
+import qs from "querystring";
 
 const PAGE_TITLE = 'API Insert letter page';
 const view = 'insert_letter';
@@ -30,6 +31,17 @@ export default class LetterController {
         console.log('About to send the answer');
 
         res.json({response_code: 'Saved successfully', ...parseResult});
+    }
+
+    async checkMultiStates(req, res, next) {
+        console.log('External check multiple states received');
+        try {
+            let letterIdsAndStates = await this.letterService.getLettersStates(req.body.letters);
+
+            res.json(letterIdsAndStates);
+        } catch (e) {
+            res.json({error: e.toString()});
+        }
     }
 
     async checkState(req, res, externalId) {
